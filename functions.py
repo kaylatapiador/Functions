@@ -1,47 +1,39 @@
-def arb_args(*args):
-    for arg in args:
-        print(arg)
+def name_args(**kwargs):
+    for k in kwargs.keys():
+        print(f"{k}:{kwargs[k]}")
 
-def inner_func(a,b):
-    def divide():
-        return a/b
-    
-    def multiply():
-        return a * b
-    
-    results = divide() + multiply()
-    print(results)
+def all_true(iter):
+    return all(iter)
 
-def lunch_lady(name, lunch="Mystery Meat"):
-    print(name, lunch)
+def one_true(iter):
+    return any(iter)
 
-def sum_n_product(a,b):
-    return a+b, a*b
+def recursive_factorial(n):
+    if n<=1:
+        return 1
+    else:
+        return n*recursive_factorial(n-1)
 
-alias_arb_args = arb_args
-
-def arb_mean(*args):
-    total = 0
-    for a in args:
-        total += a
-    print(a/len(args))
-
-def arb_longest_string(*args):
-    long = 0
-    longest = ""
-    for a in args:
-        if len(a) >long:
-            long = len(a)
-            longest = a
-    return longest
+def recursive_deduplicate(str,i=0):
+    if len(str) <=1 or i==len(str)-1:
+        return str
+    else:
+        return recursive_deduplicate(str,i+1)
 
 
-arb_args(1, 2, 3, "hello")  
-inner_func(3, 4)           
-lunch_lady("Benny Bill", "Pizza")      
-lunch_lady("Lebron James")              
-sum_result, product_result = sum_n_product(3, 4)
-print(sum_result, product_result)    
-alias_arb_args("a", "b", "c")       
-arb_mean(1, 2, 3, 4, 5)              
-print(arb_longest_string("apple", "banana", "cherry"))  
+def recursive_reverse(str, i=0):
+    if len(str)==0:
+        return ""
+    elif i ==len(str)-1:
+        return str[0]
+    else:
+        return str[-1-i] + recursive_reverse(str,i+1)
+
+name_args(a=1, b=2, c=3) 
+print(all_true([1, 2, 3, 4]))  
+print(all_true([1, 0, 3, 4])) 
+print(one_true([0, 0, 0, 1]))  
+print(one_true([0, 0, 0, 0])) 
+print(recursive_factorial(5))  
+print(recursive_deduplicate("AABBCCDD"))  
+print(recursive_reverse("hello"))  
